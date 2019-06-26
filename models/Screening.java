@@ -21,6 +21,11 @@ public class Screening {
 
     }
 
+    @Override
+    public String toString() {
+        return movie.getName() + " " + movieStart + " ";
+    }
+
     public Movie getMovie() {
         return movie;
     }

@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.PlaceStatus;
+
 import java.util.ArrayList;
 import java.util.List;
 

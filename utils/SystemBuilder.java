@@ -1,14 +1,20 @@
 package utils;
 
 import models.*;
+import models.enums.Cities;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static jdk.nashorn.internal.objects.NativeDate.getMonth;
 
 
 public class SystemBuilder {
     private List<Cinema> cinemas = new ArrayList<>();
+
 
     public void testData() {
         Cinema cinema1 = new Cinema(Cities.GDYNIA);
@@ -39,14 +45,14 @@ public class SystemBuilder {
         cinema5.addRoom(room5);
         cinema6.addRoom(room6);
 
-        Movie sw4 = new Movie("A New Hope", 2 * 60 + 5);
-        Movie sw5 = new Movie("The Empire Strikes Back", 2 * 60 + 7);
-        Movie sw6 = new Movie("Return of the Jedi", 2 * 60 + 16);
-        Movie sw1 = new Movie("Phantom Menace", 136);
-        Movie sw2 = new Movie("Attack of the Clones", 142);
-        Movie sw3 = new Movie("Revenge of the Sith", 140);
-        Movie sw7 = new Movie("The Force Awakens", 136);
-        Movie sw8 = new Movie("The Last Jedi", 152);
+        Movie sw4 = new Movie("A New Hope", 2 * 60 + 5,4);
+        Movie sw5 = new Movie("The Empire Strikes Back", 2 * 60 + 7,5);
+        Movie sw6 = new Movie("Return of the Jedi", 2 * 60 + 16,6);
+        Movie sw1 = new Movie("Phantom Menace", 136,1);
+        Movie sw2 = new Movie("Attack of the Clones", 142,2);
+        Movie sw3 = new Movie("Revenge of the Sith", 140,3);
+        Movie sw7 = new Movie("The Force Awakens", 136,4);
+        Movie sw8 = new Movie("The Last Jedi", 152,5);
 
         for (Cinema c : cinemas
         ) {
@@ -116,6 +122,23 @@ public class SystemBuilder {
         }
         return null;
     }
+    public Screening findScreening(Cities city, int sw, int month, int day) {
+
+        for (Room room : getCinema(city).getRooms()) {
+            for (Screening screening : room.getTimetable()) {
+                if (screening.getMovie().getNumber()==sw && screening.getMovieStart().getMonth().equals(Month.of(month)) && screening.getMovieStart().getDayOfMonth() == day ){
+                    System.out.println("asda");
+                    return screening;
+                }
+            }
+
+        }
+
+
+        return null;
+    }
+
+
 
     public Screening findScreening(Cinema cinema, Movie movie) {
 
@@ -131,4 +154,21 @@ public class SystemBuilder {
 
         return null;
     }
-}
+
+    public Movie findMovie(String title) {
+        for (Cinema cinema : cinemas) {
+            for (Room room : cinema.getRooms()) {
+                for (Screening screening : room.getTimetable()) {
+                    if (screening.getMovie().getName().equals(title)){return screening.getMovie();}
+                    }
+                }
+
+            }
+
+        return null;
+    }
+
+    }
+
+
+

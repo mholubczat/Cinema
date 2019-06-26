@@ -1,7 +1,8 @@
 package models;
 
+import models.enums.Cities;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cinema {
     ArrayList<Room> rooms = new ArrayList<>();
